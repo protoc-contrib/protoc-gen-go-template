@@ -1,1 +1,0 @@
-module github.com/protoc-contrib/protoc-gen-go-template/examples
