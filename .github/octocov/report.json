@@ -1,12 +1,12 @@
 {
-  "repository": "protoc-contrib/protoc-gen-go-template",
+  "repository": "protoc-contrib/protoc-gen-template",
   "ref": "refs/heads/main",
-  "commit": "6fb94950e17d744529df22d2c355313239b090db",
+  "commit": "025b8f331237e44682d26f7720857171d813efdc",
   "coverage": {
     "type": "statement",
     "format": "Go coverage",
     "total": 705,
-    "covered": 194,
+    "covered": 510,
     "files": [
       {
         "type": "statement",
@@ -751,7 +751,7 @@
         "file": "github.com/protoc-contrib/protoc-gen-template/internal/generator/helpers.go",
         "normalized_path": "internal/generator/helpers.go",
         "total": 461,
-        "covered": 96,
+        "covered": 358,
         "blocks": [
           {
             "type": "statement",
@@ -967,7 +967,7 @@
             "end_line": 94,
             "end_col": 36,
             "num_stmt": 2,
-            "count": 46
+            "count": 84
           },
           {
             "type": "statement",
@@ -985,7 +985,7 @@
             "end_line": 97,
             "end_col": 32,
             "num_stmt": 1,
-            "count": 46
+            "count": 84
           },
           {
             "type": "statement",
@@ -1003,7 +1003,7 @@
             "end_line": 100,
             "end_col": 36,
             "num_stmt": 1,
-            "count": 46
+            "count": 84
           },
           {
             "type": "statement",
@@ -1075,7 +1075,7 @@
             "end_line": 187,
             "end_col": 31,
             "num_stmt": 3,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1084,7 +1084,7 @@
             "end_line": 189,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1093,7 +1093,7 @@
             "end_line": 191,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1102,7 +1102,7 @@
             "end_line": 198,
             "end_col": 2,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1111,7 +1111,7 @@
             "end_line": 203,
             "end_col": 2,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1120,7 +1120,7 @@
             "end_line": 207,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1138,7 +1138,7 @@
             "end_line": 216,
             "end_col": 2,
             "num_stmt": 2,
-            "count": 6
+            "count": 8
           },
           {
             "type": "statement",
@@ -1147,7 +1147,7 @@
             "end_line": 222,
             "end_col": 16,
             "num_stmt": 2,
-            "count": 12
+            "count": 16
           },
           {
             "type": "statement",
@@ -1156,7 +1156,7 @@
             "end_line": 224,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1165,7 +1165,7 @@
             "end_line": 225,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 12
+            "count": 16
           },
           {
             "type": "statement",
@@ -1174,7 +1174,7 @@
             "end_line": 227,
             "end_col": 48,
             "num_stmt": 1,
-            "count": 6
+            "count": 8
           },
           {
             "type": "statement",
@@ -1183,7 +1183,7 @@
             "end_line": 229,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1192,7 +1192,7 @@
             "end_line": 230,
             "end_col": 45,
             "num_stmt": 1,
-            "count": 6
+            "count": 8
           },
           {
             "type": "statement",
@@ -1210,7 +1210,7 @@
             "end_line": 233,
             "end_col": 44,
             "num_stmt": 1,
-            "count": 6
+            "count": 8
           },
           {
             "type": "statement",
@@ -1228,7 +1228,7 @@
             "end_line": 237,
             "end_col": 42,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1246,7 +1246,7 @@
             "end_line": 240,
             "end_col": 47,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1264,7 +1264,7 @@
             "end_line": 243,
             "end_col": 45,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1318,7 +1318,7 @@
             "end_line": 259,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 6
+            "count": 8
           },
           {
             "type": "statement",
@@ -1327,7 +1327,7 @@
             "end_line": 262,
             "end_col": 41,
             "num_stmt": 1,
-            "count": 12
+            "count": 16
           },
           {
             "type": "statement",
@@ -1336,7 +1336,7 @@
             "end_line": 263,
             "end_col": 31,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -1345,7 +1345,7 @@
             "end_line": 265,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1354,7 +1354,7 @@
             "end_line": 267,
             "end_col": 12,
             "num_stmt": 1,
-            "count": 12
+            "count": 14
           },
           {
             "type": "statement",
@@ -1363,7 +1363,7 @@
             "end_line": 272,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -1372,7 +1372,7 @@
             "end_line": 276,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1381,7 +1381,7 @@
             "end_line": 279,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1390,7 +1390,7 @@
             "end_line": 282,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -1525,7 +1525,7 @@
             "end_line": 323,
             "end_col": 25,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1534,7 +1534,7 @@
             "end_line": 324,
             "end_col": 42,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1543,7 +1543,7 @@
             "end_line": 326,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1552,7 +1552,7 @@
             "end_line": 329,
             "end_col": 12,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1561,7 +1561,7 @@
             "end_line": 333,
             "end_col": 52,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -1570,7 +1570,7 @@
             "end_line": 335,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1579,7 +1579,7 @@
             "end_line": 337,
             "end_col": 46,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1588,7 +1588,7 @@
             "end_line": 341,
             "end_col": 31,
             "num_stmt": 1,
-            "count": 4
+            "count": 8
           },
           {
             "type": "statement",
@@ -1606,7 +1606,7 @@
             "end_line": 344,
             "end_col": 64,
             "num_stmt": 1,
-            "count": 4
+            "count": 8
           },
           {
             "type": "statement",
@@ -1615,7 +1615,7 @@
             "end_line": 348,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 4
+            "count": 13
           },
           {
             "type": "statement",
@@ -1633,7 +1633,7 @@
             "end_line": 351,
             "end_col": 99,
             "num_stmt": 1,
-            "count": 4
+            "count": 13
           },
           {
             "type": "statement",
@@ -1642,7 +1642,7 @@
             "end_line": 353,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 2
+            "count": 4
           },
           {
             "type": "statement",
@@ -1651,7 +1651,7 @@
             "end_line": 355,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 2
+            "count": 9
           },
           {
             "type": "statement",
@@ -1660,7 +1660,7 @@
             "end_line": 359,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -1669,7 +1669,7 @@
             "end_line": 361,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1678,7 +1678,7 @@
             "end_line": 365,
             "end_col": 33,
             "num_stmt": 3,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1687,7 +1687,7 @@
             "end_line": 366,
             "end_col": 27,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1696,7 +1696,7 @@
             "end_line": 368,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1705,7 +1705,7 @@
             "end_line": 372,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1714,7 +1714,7 @@
             "end_line": 374,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1723,7 +1723,7 @@
             "end_line": 376,
             "end_col": 29,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1732,7 +1732,7 @@
             "end_line": 377,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1741,7 +1741,7 @@
             "end_line": 379,
             "end_col": 22,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1759,7 +1759,7 @@
             "end_line": 383,
             "end_col": 22,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1786,7 +1786,7 @@
             "end_line": 391,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1795,7 +1795,7 @@
             "end_line": 395,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1813,7 +1813,7 @@
             "end_line": 401,
             "end_col": 33,
             "num_stmt": 3,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1822,7 +1822,7 @@
             "end_line": 402,
             "end_col": 27,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1831,7 +1831,7 @@
             "end_line": 404,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1840,7 +1840,7 @@
             "end_line": 408,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1849,7 +1849,7 @@
             "end_line": 410,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1858,7 +1858,7 @@
             "end_line": 412,
             "end_col": 29,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1867,7 +1867,7 @@
             "end_line": 413,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1876,7 +1876,7 @@
             "end_line": 415,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1894,7 +1894,7 @@
             "end_line": 423,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1912,7 +1912,7 @@
             "end_line": 429,
             "end_col": 33,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1921,7 +1921,7 @@
             "end_line": 430,
             "end_col": 27,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1930,7 +1930,7 @@
             "end_line": 432,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1939,7 +1939,7 @@
             "end_line": 436,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1957,7 +1957,7 @@
             "end_line": 440,
             "end_col": 29,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1966,7 +1966,7 @@
             "end_line": 441,
             "end_col": 25,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -1975,7 +1975,7 @@
             "end_line": 443,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -1993,7 +1993,7 @@
             "end_line": 467,
             "end_col": 117,
             "num_stmt": 2,
-            "count": 0
+            "count": 6
           },
           {
             "type": "statement",
@@ -2002,7 +2002,7 @@
             "end_line": 468,
             "end_col": 38,
             "num_stmt": 1,
-            "count": 0
+            "count": 5
           },
           {
             "type": "statement",
@@ -2011,7 +2011,7 @@
             "end_line": 470,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2020,7 +2020,7 @@
             "end_line": 472,
             "end_col": 56,
             "num_stmt": 2,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -2029,7 +2029,7 @@
             "end_line": 474,
             "end_col": 5,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2038,7 +2038,7 @@
             "end_line": 477,
             "end_col": 38,
             "num_stmt": 1,
-            "count": 0
+            "count": 6
           },
           {
             "type": "statement",
@@ -2047,7 +2047,7 @@
             "end_line": 483,
             "end_col": 117,
             "num_stmt": 2,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2056,7 +2056,7 @@
             "end_line": 484,
             "end_col": 38,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2065,7 +2065,7 @@
             "end_line": 486,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2074,7 +2074,7 @@
             "end_line": 488,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2083,7 +2083,7 @@
             "end_line": 490,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2092,7 +2092,7 @@
             "end_line": 494,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 1
+            "count": 18
           },
           {
             "type": "statement",
@@ -2101,7 +2101,7 @@
             "end_line": 496,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2110,7 +2110,7 @@
             "end_line": 498,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2119,7 +2119,7 @@
             "end_line": 499,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2128,7 +2128,7 @@
             "end_line": 501,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2146,7 +2146,7 @@
             "end_line": 504,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2155,7 +2155,7 @@
             "end_line": 506,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2164,7 +2164,7 @@
             "end_line": 508,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2173,7 +2173,7 @@
             "end_line": 509,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2182,7 +2182,7 @@
             "end_line": 511,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2200,7 +2200,7 @@
             "end_line": 514,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2209,7 +2209,7 @@
             "end_line": 516,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2218,7 +2218,7 @@
             "end_line": 518,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2227,7 +2227,7 @@
             "end_line": 519,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2236,7 +2236,7 @@
             "end_line": 521,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2245,7 +2245,7 @@
             "end_line": 523,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2263,7 +2263,7 @@
             "end_line": 526,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2272,7 +2272,7 @@
             "end_line": 528,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2281,7 +2281,7 @@
             "end_line": 529,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2290,7 +2290,7 @@
             "end_line": 531,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 1
+            "count": 2
           },
           {
             "type": "statement",
@@ -2299,7 +2299,7 @@
             "end_line": 533,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2317,7 +2317,7 @@
             "end_line": 536,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2326,7 +2326,7 @@
             "end_line": 538,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2335,7 +2335,7 @@
             "end_line": 539,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2344,7 +2344,7 @@
             "end_line": 541,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2353,7 +2353,7 @@
             "end_line": 542,
             "end_col": 58,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2362,7 +2362,7 @@
             "end_line": 544,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2371,7 +2371,7 @@
             "end_line": 546,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2380,7 +2380,7 @@
             "end_line": 547,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2389,7 +2389,7 @@
             "end_line": 549,
             "end_col": 58,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2407,7 +2407,7 @@
             "end_line": 558,
             "end_col": 117,
             "num_stmt": 2,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2416,7 +2416,7 @@
             "end_line": 559,
             "end_col": 38,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2425,7 +2425,7 @@
             "end_line": 561,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2434,7 +2434,7 @@
             "end_line": 563,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2443,7 +2443,7 @@
             "end_line": 565,
             "end_col": 25,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2452,7 +2452,7 @@
             "end_line": 571,
             "end_col": 17,
             "num_stmt": 3,
-            "count": 0
+            "count": 17
           },
           {
             "type": "statement",
@@ -2461,7 +2461,7 @@
             "end_line": 573,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2470,7 +2470,7 @@
             "end_line": 575,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2479,7 +2479,7 @@
             "end_line": 577,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2488,7 +2488,7 @@
             "end_line": 579,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2497,7 +2497,7 @@
             "end_line": 581,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2506,7 +2506,7 @@
             "end_line": 583,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2515,7 +2515,7 @@
             "end_line": 585,
             "end_col": 20,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2524,7 +2524,7 @@
             "end_line": 587,
             "end_col": 22,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2533,7 +2533,7 @@
             "end_line": 589,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -2542,7 +2542,7 @@
             "end_line": 591,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2551,7 +2551,7 @@
             "end_line": 592,
             "end_col": 62,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -2560,7 +2560,7 @@
             "end_line": 594,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2569,7 +2569,7 @@
             "end_line": 596,
             "end_col": 62,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2587,7 +2587,7 @@
             "end_line": 600,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 0
+            "count": 17
           },
           {
             "type": "statement",
@@ -2596,7 +2596,7 @@
             "end_line": 602,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2605,7 +2605,7 @@
             "end_line": 603,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 14
           },
           {
             "type": "statement",
@@ -2614,7 +2614,7 @@
             "end_line": 609,
             "end_col": 117,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2623,7 +2623,7 @@
             "end_line": 610,
             "end_col": 38,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2641,7 +2641,7 @@
             "end_line": 614,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2650,7 +2650,7 @@
             "end_line": 616,
             "end_col": 24,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2659,7 +2659,7 @@
             "end_line": 622,
             "end_col": 17,
             "num_stmt": 3,
-            "count": 0
+            "count": 13
           },
           {
             "type": "statement",
@@ -2668,7 +2668,7 @@
             "end_line": 624,
             "end_col": 22,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2677,7 +2677,7 @@
             "end_line": 626,
             "end_col": 21,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2686,7 +2686,7 @@
             "end_line": 628,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2695,7 +2695,7 @@
             "end_line": 630,
             "end_col": 24,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2704,7 +2704,7 @@
             "end_line": 632,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2713,7 +2713,7 @@
             "end_line": 634,
             "end_col": 24,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2722,7 +2722,7 @@
             "end_line": 636,
             "end_col": 20,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2731,7 +2731,7 @@
             "end_line": 638,
             "end_col": 27,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2740,7 +2740,7 @@
             "end_line": 640,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2749,7 +2749,7 @@
             "end_line": 642,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2758,7 +2758,7 @@
             "end_line": 643,
             "end_col": 62,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -2767,7 +2767,7 @@
             "end_line": 645,
             "end_col": 36,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -2794,7 +2794,7 @@
             "end_line": 651,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 0
+            "count": 13
           },
           {
             "type": "statement",
@@ -2803,7 +2803,7 @@
             "end_line": 653,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -2812,7 +2812,7 @@
             "end_line": 654,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 11
           },
           {
             "type": "statement",
@@ -2821,7 +2821,7 @@
             "end_line": 658,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 6
           },
           {
             "type": "statement",
@@ -2830,7 +2830,7 @@
             "end_line": 660,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 5
           },
           {
             "type": "statement",
@@ -2839,7 +2839,7 @@
             "end_line": 661,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 6
           },
           {
             "type": "statement",
@@ -3037,7 +3037,7 @@
             "end_line": 698,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3055,7 +3055,7 @@
             "end_line": 701,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3064,7 +3064,7 @@
             "end_line": 704,
             "end_col": 65,
             "num_stmt": 2,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -3073,7 +3073,7 @@
             "end_line": 708,
             "end_col": 73,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3082,7 +3082,7 @@
             "end_line": 710,
             "end_col": 5,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3091,7 +3091,7 @@
             "end_line": 712,
             "end_col": 55,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3100,7 +3100,7 @@
             "end_line": 714,
             "end_col": 52,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -3136,7 +3136,7 @@
             "end_line": 725,
             "end_col": 72,
             "num_stmt": 4,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3145,7 +3145,7 @@
             "end_line": 727,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3154,7 +3154,7 @@
             "end_line": 728,
             "end_col": 52,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3172,7 +3172,7 @@
             "end_line": 737,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 10
+            "count": 15
           },
           {
             "type": "statement",
@@ -3181,7 +3181,7 @@
             "end_line": 739,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 1
+            "count": 3
           },
           {
             "type": "statement",
@@ -3190,7 +3190,7 @@
             "end_line": 740,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 10
+            "count": 15
           },
           {
             "type": "statement",
@@ -3307,7 +3307,7 @@
             "end_line": 762,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 2
+            "count": 4
           },
           {
             "type": "statement",
@@ -3325,7 +3325,7 @@
             "end_line": 765,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 1
+            "count": 3
           },
           {
             "type": "statement",
@@ -3388,7 +3388,7 @@
             "end_line": 777,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 2
+            "count": 3
           },
           {
             "type": "statement",
@@ -3406,7 +3406,7 @@
             "end_line": 780,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 1
+            "count": 2
           },
           {
             "type": "statement",
@@ -3415,7 +3415,7 @@
             "end_line": 782,
             "end_col": 65,
             "num_stmt": 1,
-            "count": 2
+            "count": 4
           },
           {
             "type": "statement",
@@ -3433,7 +3433,7 @@
             "end_line": 785,
             "end_col": 59,
             "num_stmt": 1,
-            "count": 1
+            "count": 3
           },
           {
             "type": "statement",
@@ -3487,7 +3487,7 @@
             "end_line": 800,
             "end_col": 64,
             "num_stmt": 2,
-            "count": 0
+            "count": 12
           },
           {
             "type": "statement",
@@ -3496,7 +3496,7 @@
             "end_line": 802,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3505,7 +3505,7 @@
             "end_line": 803,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 11
           },
           {
             "type": "statement",
@@ -3514,7 +3514,7 @@
             "end_line": 805,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3523,7 +3523,7 @@
             "end_line": 807,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3532,7 +3532,7 @@
             "end_line": 809,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3541,7 +3541,7 @@
             "end_line": 811,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3550,7 +3550,7 @@
             "end_line": 813,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3559,7 +3559,7 @@
             "end_line": 815,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3568,7 +3568,7 @@
             "end_line": 817,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3577,7 +3577,7 @@
             "end_line": 819,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3586,7 +3586,7 @@
             "end_line": 821,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3595,7 +3595,7 @@
             "end_line": 823,
             "end_col": 13,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3604,7 +3604,7 @@
             "end_line": 825,
             "end_col": 19,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3622,7 +3622,7 @@
             "end_line": 833,
             "end_col": 24,
             "num_stmt": 2,
-            "count": 0
+            "count": 9
           },
           {
             "type": "statement",
@@ -3631,7 +3631,7 @@
             "end_line": 835,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -3640,7 +3640,7 @@
             "end_line": 837,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 9
           },
           {
             "type": "statement",
@@ -3649,7 +3649,7 @@
             "end_line": 840,
             "end_col": 62,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -3658,7 +3658,7 @@
             "end_line": 853,
             "end_col": 39,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -3667,7 +3667,7 @@
             "end_line": 855,
             "end_col": 40,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3676,7 +3676,7 @@
             "end_line": 857,
             "end_col": 43,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3685,7 +3685,7 @@
             "end_line": 859,
             "end_col": 39,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -3712,7 +3712,7 @@
             "end_line": 871,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 10
           },
           {
             "type": "statement",
@@ -3721,7 +3721,7 @@
             "end_line": 874,
             "end_col": 30,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -3730,7 +3730,7 @@
             "end_line": 876,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -3748,7 +3748,7 @@
             "end_line": 883,
             "end_col": 2,
             "num_stmt": 2,
-            "count": 4
+            "count": 27
           },
           {
             "type": "statement",
@@ -3757,7 +3757,7 @@
             "end_line": 889,
             "end_col": 2,
             "num_stmt": 3,
-            "count": 1
+            "count": 4
           },
           {
             "type": "statement",
@@ -3766,7 +3766,7 @@
             "end_line": 893,
             "end_col": 72,
             "num_stmt": 1,
-            "count": 0
+            "count": 8
           },
           {
             "type": "statement",
@@ -3775,7 +3775,7 @@
             "end_line": 895,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3784,7 +3784,7 @@
             "end_line": 898,
             "end_col": 9,
             "num_stmt": 3,
-            "count": 0
+            "count": 7
           },
           {
             "type": "statement",
@@ -3802,7 +3802,7 @@
             "end_line": 902,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 7
           },
           {
             "type": "statement",
@@ -3811,7 +3811,7 @@
             "end_line": 904,
             "end_col": 12,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3820,7 +3820,7 @@
             "end_line": 906,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3829,7 +3829,7 @@
             "end_line": 908,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3838,7 +3838,7 @@
             "end_line": 910,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3847,7 +3847,7 @@
             "end_line": 912,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3856,7 +3856,7 @@
             "end_line": 914,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3865,7 +3865,7 @@
             "end_line": 916,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3874,7 +3874,7 @@
             "end_line": 921,
             "end_col": 72,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -3883,7 +3883,7 @@
             "end_line": 923,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3892,7 +3892,7 @@
             "end_line": 926,
             "end_col": 9,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3910,7 +3910,7 @@
             "end_line": 932,
             "end_col": 63,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3919,7 +3919,7 @@
             "end_line": 933,
             "end_col": 52,
             "num_stmt": 1,
-            "count": 0
+            "count": 6
           },
           {
             "type": "statement",
@@ -3928,7 +3928,7 @@
             "end_line": 935,
             "end_col": 40,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3937,7 +3937,7 @@
             "end_line": 937,
             "end_col": 41,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3946,7 +3946,7 @@
             "end_line": 939,
             "end_col": 40,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3955,7 +3955,7 @@
             "end_line": 941,
             "end_col": 43,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3964,7 +3964,7 @@
             "end_line": 943,
             "end_col": 42,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3973,7 +3973,7 @@
             "end_line": 945,
             "end_col": 48,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -3991,7 +3991,7 @@
             "end_line": 951,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4000,7 +4000,7 @@
             "end_line": 956,
             "end_col": 72,
             "num_stmt": 1,
-            "count": 0
+            "count": 8
           },
           {
             "type": "statement",
@@ -4009,7 +4009,7 @@
             "end_line": 958,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4018,7 +4018,7 @@
             "end_line": 961,
             "end_col": 9,
             "num_stmt": 3,
-            "count": 0
+            "count": 7
           },
           {
             "type": "statement",
@@ -4036,7 +4036,7 @@
             "end_line": 965,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 7
           },
           {
             "type": "statement",
@@ -4045,7 +4045,7 @@
             "end_line": 967,
             "end_col": 12,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4054,7 +4054,7 @@
             "end_line": 969,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4063,7 +4063,7 @@
             "end_line": 971,
             "end_col": 16,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4072,7 +4072,7 @@
             "end_line": 973,
             "end_col": 15,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4081,7 +4081,7 @@
             "end_line": 975,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4090,7 +4090,7 @@
             "end_line": 977,
             "end_col": 17,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4099,7 +4099,7 @@
             "end_line": 979,
             "end_col": 23,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4108,7 +4108,7 @@
             "end_line": 985,
             "end_col": 72,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4117,7 +4117,7 @@
             "end_line": 987,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4126,7 +4126,7 @@
             "end_line": 990,
             "end_col": 9,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4144,7 +4144,7 @@
             "end_line": 993,
             "end_col": 18,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4153,7 +4153,7 @@
             "end_line": 997,
             "end_col": 32,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -4162,7 +4162,7 @@
             "end_line": 998,
             "end_col": 29,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -4171,7 +4171,7 @@
             "end_line": 999,
             "end_col": 64,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -4180,7 +4180,7 @@
             "end_line": 1001,
             "end_col": 5,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4189,7 +4189,7 @@
             "end_line": 1006,
             "end_col": 68,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4198,7 +4198,7 @@
             "end_line": 1008,
             "end_col": 5,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4207,7 +4207,7 @@
             "end_line": 1012,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4351,7 +4351,7 @@
             "end_line": 1070,
             "end_col": 2,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4360,7 +4360,7 @@
             "end_line": 1076,
             "end_col": 2,
             "num_stmt": 3,
-            "count": 0
+            "count": 1
           }
         ]
       },
@@ -4477,7 +4477,7 @@
         "file": "github.com/protoc-contrib/protoc-gen-template/internal/generator/options_ext.go",
         "normalized_path": "internal/generator/options_ext.go",
         "total": 113,
-        "covered": 0,
+        "covered": 54,
         "blocks": [
           {
             "type": "statement",
@@ -4486,7 +4486,7 @@
             "end_line": 34,
             "end_col": 150,
             "num_stmt": 4,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -4495,7 +4495,7 @@
             "end_line": 35,
             "end_col": 50,
             "num_stmt": 1,
-            "count": 0
+            "count": 8
           },
           {
             "type": "statement",
@@ -4504,7 +4504,7 @@
             "end_line": 37,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 8
           },
           {
             "type": "statement",
@@ -4513,7 +4513,7 @@
             "end_line": 39,
             "end_col": 14,
             "num_stmt": 1,
-            "count": 0
+            "count": 8
           },
           {
             "type": "statement",
@@ -4522,7 +4522,7 @@
             "end_line": 44,
             "end_col": 26,
             "num_stmt": 2,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -4531,7 +4531,7 @@
             "end_line": 47,
             "end_col": 39,
             "num_stmt": 2,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -4540,7 +4540,7 @@
             "end_line": 49,
             "end_col": 4,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4549,7 +4549,7 @@
             "end_line": 59,
             "end_col": 17,
             "num_stmt": 3,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -4567,7 +4567,7 @@
             "end_line": 64,
             "end_col": 64,
             "num_stmt": 1,
-            "count": 0
+            "count": 4
           },
           {
             "type": "statement",
@@ -4576,7 +4576,7 @@
             "end_line": 73,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 3
           },
           {
             "type": "statement",
@@ -4585,7 +4585,7 @@
             "end_line": 75,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4594,7 +4594,7 @@
             "end_line": 81,
             "end_col": 16,
             "num_stmt": 4,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4612,7 +4612,7 @@
             "end_line": 85,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4630,7 +4630,7 @@
             "end_line": 89,
             "end_col": 11,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4639,7 +4639,7 @@
             "end_line": 94,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4648,7 +4648,7 @@
             "end_line": 96,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4702,7 +4702,7 @@
             "end_line": 119,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4711,7 +4711,7 @@
             "end_line": 121,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4765,7 +4765,7 @@
             "end_line": 139,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4774,7 +4774,7 @@
             "end_line": 141,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4828,7 +4828,7 @@
             "end_line": 160,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4837,7 +4837,7 @@
             "end_line": 162,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4891,7 +4891,7 @@
             "end_line": 181,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -4900,7 +4900,7 @@
             "end_line": 183,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4909,7 +4909,7 @@
             "end_line": 189,
             "end_col": 16,
             "num_stmt": 4,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4927,7 +4927,7 @@
             "end_line": 194,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4936,7 +4936,7 @@
             "end_line": 196,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4954,7 +4954,7 @@
             "end_line": 202,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -4963,7 +4963,7 @@
             "end_line": 204,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5017,7 +5017,7 @@
             "end_line": 223,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 2
           },
           {
             "type": "statement",
@@ -5026,7 +5026,7 @@
             "end_line": 225,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5035,7 +5035,7 @@
             "end_line": 231,
             "end_col": 16,
             "num_stmt": 4,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5053,7 +5053,7 @@
             "end_line": 236,
             "end_col": 9,
             "num_stmt": 2,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5062,7 +5062,7 @@
             "end_line": 238,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5080,7 +5080,7 @@
             "end_line": 244,
             "end_col": 34,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5089,7 +5089,7 @@
             "end_line": 246,
             "end_col": 3,
             "num_stmt": 1,
-            "count": 0
+            "count": 1
           },
           {
             "type": "statement",
@@ -5141,5 +5141,5 @@
     ]
   },
   "test_execution_time": 35000000000,
-  "timestamp": "2026-04-19T13:27:13.652003383Z"
+  "timestamp": "2026-04-19T13:39:03.794773165Z"
 }
