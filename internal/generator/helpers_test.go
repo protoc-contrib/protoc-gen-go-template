@@ -1,212 +1,155 @@
-package generator
+package generator_test
 
 import (
-	"testing"
+	"fmt"
+	"strings"
 	"text/template"
+
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+
+	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
 )
 
-// invoke looks up a helper in ProtoHelpersFuncMap and invokes it against args
-// via a throwaway text/template. This exercises the same code path users hit.
-func invoke(t *testing.T, name string, args ...interface{}) string {
-	t.Helper()
-
-	placeholders := ""
+// render invokes a template that calls `name` against args, passed in as
+// `.` so each argument is reachable as `(index . N)`.
+func render(name string, args ...any) (string, error) {
+	placeholders := make([]string, len(args))
 	for i := range args {
-		if i == 0 {
-			placeholders = "(index . 0)"
-			continue
-		}
-		placeholders += " (index . " + itoa(i) + ")"
+		placeholders[i] = fmt.Sprintf("(index . %d)", i)
 	}
-	src := "{{ " + name + " " + placeholders + " }}"
-
-	tmpl, err := template.New("t").Funcs(ProtoHelpersFuncMap).Parse(src)
+	src := fmt.Sprintf("{{ %s %s }}", name, strings.Join(placeholders, " "))
+	tmpl, err := template.New("t").Funcs(generator.ProtoHelpersFuncMap).Parse(src)
 	if err != nil {
-		t.Fatalf("parse %q: %v", src, err)
+		return "", err
 	}
-
-	buf := &stringBuilder{}
-	if err := tmpl.Execute(buf, args); err != nil {
-		t.Fatalf("exec %q: %v", src, err)
+	var sb strings.Builder
+	if err := tmpl.Execute(&sb, args); err != nil {
+		return "", err
 	}
-	return buf.String()
+	return sb.String(), nil
 }
 
-type stringBuilder struct{ s string }
+var _ = Describe("funcmap", func() {
+	DescribeTable("naming helpers",
+		func(name, input, want string) {
+			got, err := render(name, input)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(got).To(Equal(want))
+		},
+		Entry("camelCase hello_world", "camelCase", "hello_world", "helloWorld"),
+		Entry("camelCase foo_bar_baz", "camelCase", "foo_bar_baz", "fooBarBaz"),
+		Entry("camelCase single char", "camelCase", "a", "A"),
+		Entry("lowerCamelCase hello_world", "lowerCamelCase", "hello_world", "helloWorld"),
+		Entry("lowerCamelCase foo_bar", "lowerCamelCase", "foo_bar", "fooBar"),
+		Entry("lowerCamelCase single char", "lowerCamelCase", "a", "a"),
+		Entry("snakeCase HelloWorld", "snakeCase", "HelloWorld", "hello_world"),
+		Entry("snakeCase FooBarBaz", "snakeCase", "FooBarBaz", "foo_bar_baz"),
+		Entry("kebabCase HelloWorld", "kebabCase", "HelloWorld", "hello-world"),
+		Entry("kebabCase foo_bar", "kebabCase", "foo_bar", "foo-bar"),
+		Entry("upperFirst", "upperFirst", "hello", "Hello"),
+		Entry("lowerFirst", "lowerFirst", "HELLO", "hELLO"),
+		Entry("upperCase", "upperCase", "hello", "HELLO"),
+	)
 
-func (b *stringBuilder) Write(p []byte) (int, error) { b.s += string(p); return len(p), nil }
-func (b *stringBuilder) String() string              { return b.s }
+	DescribeTable("arithmetic helpers",
+		func(name string, a, b, want int) {
+			got, err := render(name, a, b)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(got).To(Equal(fmt.Sprint(want)))
+		},
+		Entry("add", "add", 2, 3, 5),
+		Entry("add negative", "add", -4, 1, -3),
+		Entry("subtract", "subtract", 10, 4, 6),
+		Entry("multiply", "multiply", 6, 7, 42),
+		Entry("multiply by zero", "multiply", 5, 0, 0),
+		Entry("divide", "divide", 20, 5, 4),
+		Entry("divide exact", "divide", 9, 3, 3),
+	)
 
-func itoa(i int) string {
-	if i == 0 {
-		return "0"
-	}
-	neg := ""
-	if i < 0 {
-		neg = "-"
-		i = -i
-	}
-	out := ""
-	for i > 0 {
-		out = string(rune('0'+i%10)) + out
-		i /= 10
-	}
-	return neg + out
-}
+	It("rejects division by zero at template-execution time", func() {
+		_, err := render("divide", 1, 0)
+		Expect(err).To(HaveOccurred())
+		Expect(err.Error()).To(ContainSubstring("divide"))
+	})
 
-func TestCamelCase(t *testing.T) {
-	// xstrings.ToCamelCase produces lowerCamelCase; the single-character
-	// branch upper-cases. These expectations encode that behavior.
-	cases := map[string]string{
-		"hello_world":  "helloWorld",
-		"foo_bar_baz":  "fooBarBaz",
-		"a":            "A",
-		"already_good": "alreadyGood",
-	}
-	for in, want := range cases {
-		if got := invoke(t, "camelCase", in); got != want {
-			t.Errorf("camelCase(%q) = %q; want %q", in, got, want)
+	DescribeTable("string predicates",
+		func(name string, args []any, want string) {
+			got, err := render(name, args...)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(got).To(Equal(want))
+		},
+		Entry("contains present", "contains", []any{"ell", "hello"}, "true"),
+		Entry("contains absent", "contains", []any{"xyz", "hello"}, "false"),
+		Entry("trimstr strips prefix+suffix", "trimstr", []any{"/", "/foo/bar/"}, "foo/bar"),
+	)
+
+	It("renders json and prettyjson", func() {
+		out, err := render("json", map[string]int{"a": 1})
+		Expect(err).NotTo(HaveOccurred())
+		Expect(out).To(Equal(`{"a":1}`))
+
+		out, err = render("prettyjson", map[string]int{"a": 1})
+		Expect(err).NotTo(HaveOccurred())
+		Expect(out).To(ContainSubstring("\n  \"a\": 1"))
+	})
+
+	It("splits strings into a list of items", func() {
+		src := `{{ range $i, $v := splitArray "," "a,b,,c" }}{{if $i}},{{end}}{{$v}}{{end}}`
+		tmpl, err := template.New("t").Funcs(generator.ProtoHelpersFuncMap).Parse(src)
+		Expect(err).NotTo(HaveOccurred())
+		var sb strings.Builder
+		Expect(tmpl.Execute(&sb, nil)).To(Succeed())
+		// splitArray drops empty segments, so "a,b,,c" → ["a","b","c"].
+		Expect(sb.String()).To(Equal("a,b,c"))
+	})
+
+	DescribeTable("proto type helpers",
+		func(name, input, want string) {
+			got, err := render(name, input)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(got).To(Equal(want))
+		},
+		Entry("shortType strips package prefix", "shortType", ".foo.bar.Baz", "Baz"),
+		Entry("shortType passthrough when no dots", "shortType", "Baz", "Baz"),
+		Entry("namespacedFlowType dollar-delimits", "namespacedFlowType", ".foo.bar.Baz", "foo$bar$Baz"),
+		Entry("goNormalize snake→PascalCamel", "goNormalize", "foo_bar_baz", "fooBarBaz"),
+		Entry("goNormalize rewrites id→ID", "goNormalize", "user_id", "userID"),
+		Entry("lowerGoNormalize", "lowerGoNormalize", "foo_bar_baz", "fooBarBaz"),
+	)
+
+	DescribeTable("jsSuffixReserved",
+		func(input, want string) {
+			got, err := render("jsSuffixReserved", input)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(got).To(Equal(want))
+		},
+		Entry("appends _ to reserved", "class", "class_"),
+		Entry("appends _ to another reserved", "function", "function_"),
+		Entry("passthrough non-reserved", "userName", "userName"),
+	)
+
+	It("replaceDict substitutes from a dict", func() {
+		src := `{{ replaceDict "hello world" (dict "hello" "hi" "world" "earth") }}`
+		tmpl, err := template.New("t").Funcs(generator.ProtoHelpersFuncMap).Parse(src)
+		Expect(err).NotTo(HaveOccurred())
+		var sb strings.Builder
+		Expect(tmpl.Execute(&sb, nil)).To(Succeed())
+		Expect(sb.String()).To(Equal("hi earth"))
+	})
+
+	It("registers the expected set of helpers", func() {
+		wantKeys := []string{
+			"camelCase", "lowerCamelCase", "snakeCase", "kebabCase",
+			"upperFirst", "lowerFirst", "upperCase",
+			"add", "subtract", "multiply", "divide",
+			"contains", "trimstr", "json", "prettyjson",
+			"goType", "goPkg", "jsType", "haskellType",
+			"httpVerb", "httpPath", "httpBody",
+			"first", "last", "splitArray",
 		}
-	}
-}
-
-func TestLowerCamelCase(t *testing.T) {
-	cases := map[string]string{
-		"hello_world": "helloWorld",
-		"foo_bar":     "fooBar",
-		"a":           "a",
-	}
-	for in, want := range cases {
-		if got := invoke(t, "lowerCamelCase", in); got != want {
-			t.Errorf("lowerCamelCase(%q) = %q; want %q", in, got, want)
+		for _, k := range wantKeys {
+			Expect(generator.ProtoHelpersFuncMap).To(HaveKey(k), "missing helper %q", k)
 		}
-	}
-}
-
-func TestSnakeCase(t *testing.T) {
-	cases := map[string]string{
-		"HelloWorld": "hello_world",
-		"FooBarBaz":  "foo_bar_baz",
-		"a":          "a",
-	}
-	for in, want := range cases {
-		if got := invoke(t, "snakeCase", in); got != want {
-			t.Errorf("snakeCase(%q) = %q; want %q", in, got, want)
-		}
-	}
-}
-
-func TestKebabCase(t *testing.T) {
-	cases := map[string]string{
-		"HelloWorld": "hello-world",
-		"foo_bar":    "foo-bar",
-	}
-	for in, want := range cases {
-		if got := invoke(t, "kebabCase", in); got != want {
-			t.Errorf("kebabCase(%q) = %q; want %q", in, got, want)
-		}
-	}
-}
-
-func TestUpperLowerFirst(t *testing.T) {
-	if got := invoke(t, "upperFirst", "hello"); got != "Hello" {
-		t.Errorf("upperFirst: got %q", got)
-	}
-	if got := invoke(t, "lowerFirst", "HELLO"); got != "hELLO" {
-		t.Errorf("lowerFirst: got %q", got)
-	}
-}
-
-func TestArithmetic(t *testing.T) {
-	if got := invoke(t, "add", 2, 3); got != "5" {
-		t.Errorf("add: got %q", got)
-	}
-	if got := invoke(t, "subtract", 10, 4); got != "6" {
-		t.Errorf("subtract: got %q", got)
-	}
-	if got := invoke(t, "multiply", 6, 7); got != "42" {
-		t.Errorf("multiply: got %q", got)
-	}
-	if got := invoke(t, "divide", 20, 5); got != "4" {
-		t.Errorf("divide: got %q", got)
-	}
-}
-
-func TestDivideByZero(t *testing.T) {
-	// divide panics on zero; text/template converts the panic into an
-	// execution error. Assert that templates calling divide(_, 0) fail
-	// rather than returning a bogus number.
-	src := "{{ divide (index . 0) (index . 1) }}"
-	tmpl, err := template.New("t").Funcs(ProtoHelpersFuncMap).Parse(src)
-	if err != nil {
-		t.Fatalf("parse: %v", err)
-	}
-	buf := &stringBuilder{}
-	if err := tmpl.Execute(buf, []interface{}{1, 0}); err == nil {
-		t.Fatalf("expected error on division by zero, got %q", buf.String())
-	}
-}
-
-func TestContains(t *testing.T) {
-	if got := invoke(t, "contains", "ell", "hello"); got != "true" {
-		t.Errorf("contains present: got %q", got)
-	}
-	if got := invoke(t, "contains", "xyz", "hello"); got != "false" {
-		t.Errorf("contains absent: got %q", got)
-	}
-}
-
-func TestTrimStr(t *testing.T) {
-	if got := invoke(t, "trimstr", "/", "/foo/bar/"); got != "foo/bar" {
-		t.Errorf("trimstr: got %q", got)
-	}
-}
-
-func TestGoNormalize(t *testing.T) {
-	// Matches xstrings.ToCamelCase behavior (lowerCamelCase). The ID
-	// rewrite kicks in only for inputs that look like id fields.
-	if got := goNormalize("foo_bar_baz"); got != "fooBarBaz" {
-		t.Errorf("goNormalize: got %q", got)
-	}
-	if got := goNormalize("user_id"); got != "userID" {
-		t.Errorf("goNormalize id-rewrite: got %q", got)
-	}
-}
-
-func TestLowerGoNormalize(t *testing.T) {
-	if got := lowerGoNormalize("foo_bar_baz"); got != "fooBarBaz" {
-		t.Errorf("lowerGoNormalize: got %q", got)
-	}
-}
-
-func TestShortType(t *testing.T) {
-	if got := shortType(".foo.bar.Baz"); got != "Baz" {
-		t.Errorf("shortType: got %q", got)
-	}
-	if got := shortType("Baz"); got != "Baz" {
-		t.Errorf("shortType (no dots): got %q", got)
-	}
-}
-
-func TestNamespacedFlowType(t *testing.T) {
-	if got := namespacedFlowType(".foo.bar.Baz"); got != "foo$bar$Baz" {
-		t.Errorf("namespacedFlowType: got %q", got)
-	}
-}
-
-func TestFuncMapRegistered(t *testing.T) {
-	// Guard against accidental removal — these are the high-visibility helpers.
-	wantKeys := []string{
-		"camelCase", "lowerCamelCase", "snakeCase", "kebabCase",
-		"upperFirst", "lowerFirst",
-		"add", "subtract", "multiply", "divide",
-		"contains", "trimstr", "json", "prettyjson",
-		"goType", "goPkg", "jsType", "haskellType",
-		"httpVerb", "httpPath", "httpBody",
-	}
-	for _, k := range wantKeys {
-		if _, ok := ProtoHelpersFuncMap[k]; !ok {
-			t.Errorf("funcmap missing key %q", k)
-		}
-	}
-}
+	})
+})
