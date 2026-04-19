@@ -1,4 +1,4 @@
-module github.com/protoc-contrib/protoc-gen-go-template
+module github.com/protoc-contrib/protoc-gen-template
 
 go 1.24.0
 

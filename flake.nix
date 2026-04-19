@@ -1,5 +1,5 @@
 {
-  description = "protoc-gen-go-template - A protoc plugin that renders arbitrary files from Go text/template sources driven by the parsed proto AST";
+  description = "protoc-gen-template - A protoc plugin that renders arbitrary files from Go text/template sources driven by the parsed proto AST";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -16,10 +16,10 @@
       in
       {
         packages.default = pkgs.buildGoModule {
-          pname = "protoc-gen-go-template";
+          pname = "protoc-gen-template";
           inherit version;
           src = pkgs.lib.cleanSource ./.;
-          subPackages = [ "cmd/protoc-gen-go-template" ];
+          subPackages = [ "cmd/protoc-gen-template" ];
           vendorHash = "sha256-uYMXcENgL2Y5o4J8wn6cmdeKYKaEd+gRWCRlwWBYaEY=";
           ldflags = [
             "-s"
@@ -28,12 +28,12 @@
           meta = with pkgs.lib; {
             description = "A protoc plugin that renders arbitrary files from Go text/template sources";
             license = licenses.mit;
-            mainProgram = "protoc-gen-go-template";
+            mainProgram = "protoc-gen-template";
           };
         };
 
         devShells.default = pkgs.mkShell {
-          name = "protoc-gen-go-template";
+          name = "protoc-gen-template";
           packages = [
             pkgs.go
             pkgs.protobuf

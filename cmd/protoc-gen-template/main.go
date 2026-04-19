@@ -1,4 +1,4 @@
-// Command protoc-gen-go-template is a protoc plugin that renders arbitrary
+// Command protoc-gen-template is a protoc plugin that renders arbitrary
 // files from Go text/template sources, driven by the parsed proto AST.
 package main
 
@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+	"github.com/protoc-contrib/protoc-gen-template/internal/generator"
 )
 
 func main() {

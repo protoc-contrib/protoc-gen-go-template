@@ -4,7 +4,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+	"github.com/protoc-contrib/protoc-gen-template/internal/generator"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 

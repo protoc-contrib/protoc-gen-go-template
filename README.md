@@ -1,8 +1,8 @@
-# protoc-gen-go-template
+# protoc-gen-template
 
-[![CI](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml)
-[![Coverage](https://raw.githubusercontent.com/protoc-contrib/protoc-gen-go-template/main/.github/octocov/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/protoc-contrib/protoc-gen-go-template?include_prereleases)](https://github.com/protoc-contrib/protoc-gen-go-template/releases)
+[![CI](https://github.com/protoc-contrib/protoc-gen-template/actions/workflows/ci.yml/badge.svg)](https://github.com/protoc-contrib/protoc-gen-template/actions/workflows/ci.yml)
+[![Coverage](https://raw.githubusercontent.com/protoc-contrib/protoc-gen-template/main/.github/octocov/badge.svg)](https://github.com/protoc-contrib/protoc-gen-template/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/protoc-contrib/protoc-gen-template?include_prereleases)](https://github.com/protoc-contrib/protoc-gen-template/releases)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
 [![Go](https://img.shields.io/badge/Go-1.23-00ADD8?logo=go&logoColor=white)](https://go.dev)
 [![protoc](https://img.shields.io/badge/protoc-compatible-blue)](https://protobuf.dev)
@@ -19,7 +19,8 @@ annotation accessors, extension readers).
 This project is a continuation of
 [moul/protoc-gen-gotemplate](https://github.com/moul/protoc-gen-gotemplate)
 by Manfred Touron and contributors, republished under `protoc-contrib` and
-renamed to align with common protoc plugin naming conventions. The binary
+renamed so the name reflects what the plugin actually does — drive code
+generation from templates, regardless of the output language. The binary
 entrypoint now uses `google.golang.org/protobuf/compiler/protogen`, the
 layout mirrors the rest of the `protoc-contrib` plugins, and the build and
 release pipeline runs on Nix + `release-please`.
@@ -48,7 +49,7 @@ release pipeline runs on Nix + `release-please`.
 
 ## Options
 
-Pass plugin options via `--go-template_opt=key=value` (protoc) or the
+Pass plugin options via `--template_opt=key=value` (protoc) or the
 `opt:` list under the plugin entry in `buf.gen.yaml`.
 
 | Option                | Default      | Effect                                                                                 |
@@ -63,7 +64,7 @@ Pass plugin options via `--go-template_opt=key=value` (protoc) or the
 ## Installation
 
 ```bash
-go install github.com/protoc-contrib/protoc-gen-go-template/cmd/protoc-gen-go-template@latest
+go install github.com/protoc-contrib/protoc-gen-template/cmd/protoc-gen-template@latest
 ```
 
 ## Usage
@@ -75,7 +76,7 @@ Add the plugin to your `buf.gen.yaml`:
 ```yaml
 version: v2
 plugins:
-  - local: protoc-gen-go-template
+  - local: protoc-gen-template
     out: .
     opt:
       - template_dir=./templates
@@ -91,8 +92,8 @@ buf generate
 
 ```bash
 protoc \
-  --go-template_out=. \
-  --go-template_opt=template_dir=./templates \
+  --template_out=. \
+  --template_opt=template_dir=./templates \
   -I proto/ \
   proto/example.proto
 ```
@@ -118,7 +119,7 @@ and a `doc.txt.tmpl` like:
 running:
 
 ```bash
-protoc --go-template_out=. input.proto
+protoc --template_out=. input.proto
 ```
 
 produces `doc.txt` and `config.json` alongside the originals, one pair per
@@ -136,7 +137,7 @@ type Ast struct {
     DestinationDir string
     RawFilename    string
     Filename       string
-    PWD, GoPWD     string
+    PWD            string
     BuildDate      time.Time
     BuildHostname  string
     BuildUser      string
@@ -149,9 +150,9 @@ the full funcmap.
 
 ## Migration from `protoc-gen-gotemplate`
 
-- Binary renamed: `protoc-gen-gotemplate` → `protoc-gen-go-template`.
-- Protoc flag renamed: `--gotemplate_out` → `--go-template_out`.
-- Install path: `go install github.com/protoc-contrib/protoc-gen-go-template/cmd/protoc-gen-go-template@latest`.
+- Binary renamed: `protoc-gen-gotemplate` → `protoc-gen-template`.
+- Protoc flag renamed: `--gotemplate_out` → `--template_out`.
+- Install path: `go install github.com/protoc-contrib/protoc-gen-template/cmd/protoc-gen-template@latest`.
 
 ## Contributing
 

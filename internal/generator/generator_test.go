@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+	"github.com/protoc-contrib/protoc-gen-template/internal/generator"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

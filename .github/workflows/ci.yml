@@ -82,10 +82,10 @@ jobs:
 
       - name: Prepare Release Assets
         run: |
-          mkdir -p release && install -m 0755 result/bin/protoc-gen-go-template release/protoc-gen-go-template-${{ matrix.nix_system }}
+          mkdir -p release && install -m 0755 result/bin/protoc-gen-template release/protoc-gen-template-${{ matrix.nix_system }}
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.release.outputs.tag_name }}
-          files: release/protoc-gen-go-template-${{ matrix.nix_system }}
+          files: release/protoc-gen-template-${{ matrix.nix_system }}
