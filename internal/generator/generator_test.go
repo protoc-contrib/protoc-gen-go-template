@@ -4,14 +4,15 @@ import (
 	"os"
 	"path/filepath"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
 	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
 // writeTemplate writes content to dir/relative and returns the absolute path.
@@ -194,5 +195,4 @@ var _ = Describe("generator.Generate", func() {
 		Expect(generator.Generate(plugin, &generator.Options{TemplateDir: tmplDir})).To(Succeed())
 		Expect(outputNames(plugin)).To(ConsistOf("keep.txt"))
 	})
-
 })

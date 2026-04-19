@@ -4,12 +4,12 @@ import (
 	"strings"
 	"text/template"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
 // scalarField returns a FieldDescriptorProto for a primitive scalar.

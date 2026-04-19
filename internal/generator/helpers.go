@@ -3,8 +3,10 @@ package generator
 import (
 	"encoding/json"
 	"fmt"
+	"maps"
 	"reflect"
 	"regexp"
+	"slices"
 	"strings"
 	"sync"
 	"text/template"
@@ -31,22 +33,22 @@ var ProtoHelpersFuncMap = template.FuncMap{
 	}) string {
 		return i.String()
 	},
-	"json": func(v interface{}) string {
+	"json": func(v any) string {
 		a, err := json.Marshal(v)
 		if err != nil {
 			return err.Error()
 		}
 		return string(a)
 	},
-	"prettyjson": func(v interface{}) string {
+	"prettyjson": func(v any) string {
 		a, err := json.MarshalIndent(v, "", "  ")
 		if err != nil {
 			return err.Error()
 		}
 		return string(a)
 	},
-	"splitArray": func(sep string, s string) []interface{} {
-		var r []interface{}
+	"splitArray": func(sep string, s string) []any {
+		var r []any
 		t := strings.Split(s, sep)
 		for i := range t {
 			if t[i] != "" {
@@ -79,7 +81,7 @@ var ProtoHelpersFuncMap = template.FuncMap{
 		return strings.ToUpper(s)
 	},
 	"kebabCase": func(s string) string {
-		return strings.Replace(xstrings.ToSnakeCase(s), "_", "-", -1)
+		return strings.ReplaceAll(xstrings.ToSnakeCase(s), "_", "-")
 	},
 	"contains": func(sub, s string) bool {
 		return strings.Contains(s, sub)
@@ -87,7 +89,7 @@ var ProtoHelpersFuncMap = template.FuncMap{
 	"trimstr": func(cutset, s string) string {
 		return strings.Trim(s, cutset)
 	},
-	"index": func(array interface{}, i int) interface{} {
+	"index": func(array any, i int) any {
 		slice := reflect.ValueOf(array)
 		if slice.Kind() != reflect.Slice {
 			panic("Error in index(): given a non-slice type")
@@ -162,23 +164,23 @@ var ProtoHelpersFuncMap = template.FuncMap{
 	"rustTypeWithPackage":          rustTypeWithPackage,
 }
 
-var pathMap map[interface{}]*descriptor.SourceCodeInfo_Location
+var pathMap map[any]*descriptor.SourceCodeInfo_Location
 
 var store = newStore()
 
 // Utility to store some vars across multiple scope
 type globalStore struct {
-	store map[string]interface{}
+	store map[string]any
 	mu    sync.Mutex
 }
 
 func newStore() *globalStore {
 	return &globalStore{
-		store: make(map[string]interface{}),
+		store: make(map[string]any),
 	}
 }
 
-func (s *globalStore) getData(key string) interface{} {
+func (s *globalStore) getData(key string) any {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -189,18 +191,18 @@ func (s *globalStore) getData(key string) interface{} {
 	return false
 }
 
-func (s *globalStore) setData(key string, o interface{}) {
+func (s *globalStore) setData(key string, o any) {
 	s.mu.Lock()
 	s.store[key] = o
 	s.mu.Unlock()
 }
 
-func setStore(key string, o interface{}) string {
+func setStore(key string, o any) string {
 	store.setData(key, o)
 	return ""
 }
 
-func getStore(key string) interface{} {
+func getStore(key string) any {
 	return store.getData(key)
 }
 
@@ -209,20 +211,13 @@ func SetRegistry(reg *ggdescriptor.Registry) {
 }
 
 func InitPathMap(file *descriptor.FileDescriptorProto) {
-	pathMap = make(map[interface{}]*descriptor.SourceCodeInfo_Location)
+	pathMap = make(map[any]*descriptor.SourceCodeInfo_Location)
 	addToPathMap(file.GetSourceCodeInfo(), file, []int32{})
-}
-
-func InitPathMaps(files []*descriptor.FileDescriptorProto) {
-	pathMap = make(map[interface{}]*descriptor.SourceCodeInfo_Location)
-	for _, file := range files {
-		addToPathMap(file.GetSourceCodeInfo(), file, []int32{})
-	}
 }
 
 // addToPathMap traverses through the AST adding SourceCodeInfo_Location entries to the pathMap.
 // Since the AST is a tree, the recursion finishes once it has gone through all the nodes.
-func addToPathMap(info *descriptor.SourceCodeInfo, i interface{}, path []int32) {
+func addToPathMap(info *descriptor.SourceCodeInfo, i any, path []int32) {
 	loc := findLoc(info, path)
 	if loc != nil {
 		pathMap[i] = loc
@@ -260,9 +255,7 @@ func addToPathMap(info *descriptor.SourceCodeInfo, i interface{}, path []int32) 
 }
 
 func newPath(base []int32, field int32, index int) []int32 {
-	p := append([]int32{}, base...)
-	p = append(p, field, int32(index))
-	return p
+	return append(slices.Clone(base), field, int32(index))
 }
 
 func findLoc(info *descriptor.SourceCodeInfo, path []int32) *descriptor.SourceCodeInfo_Location {
@@ -275,34 +268,21 @@ func findLoc(info *descriptor.SourceCodeInfo, path []int32) *descriptor.SourceCo
 }
 
 func samePath(a, b []int32) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, p := range a {
-		if p != b[i] {
-			return false
-		}
-	}
-	return true
+	return slices.Equal(a, b)
 }
 
-func leadingComment(i interface{}) string {
-	loc := pathMap[i]
-	return loc.GetLeadingComments()
+func leadingComment(i any) string {
+	return pathMap[i].GetLeadingComments()
 }
-func trailingComment(i interface{}) string {
-	loc := pathMap[i]
-	return loc.GetTrailingComments()
+func trailingComment(i any) string {
+	return pathMap[i].GetTrailingComments()
 }
-func leadingDetachedComments(i interface{}) []string {
-	loc := pathMap[i]
-	return loc.GetLeadingDetachedComments()
+func leadingDetachedComments(i any) []string {
+	return pathMap[i].GetLeadingDetachedComments()
 }
 
 func init() {
-	for k, v := range sprig.TxtFuncMap() {
-		ProtoHelpersFuncMap[k] = v
-	}
+	maps.Copy(ProtoHelpersFuncMap, sprig.TxtFuncMap())
 }
 
 func getProtoFile(name string) *ggdescriptor.File {
@@ -350,20 +330,18 @@ func getEnumValue(f []*descriptor.EnumDescriptorProto, name string) []*descripto
 }
 
 func isFieldMessageTimeStamp(f *descriptor.FieldDescriptorProto) bool {
-	if f.Type != nil && *f.Type == descriptor.FieldDescriptorProto_TYPE_MESSAGE {
-		if strings.Compare(*f.TypeName, ".google.protobuf.Timestamp") == 0 {
-			return true
-		}
+	if f == nil || f.Type == nil || f.TypeName == nil {
+		return false
 	}
-	return false
+	return *f.Type == descriptor.FieldDescriptorProto_TYPE_MESSAGE &&
+		*f.TypeName == ".google.protobuf.Timestamp"
 }
 
 func isFieldMessage(f *descriptor.FieldDescriptorProto) bool {
-	if f.Type != nil && *f.Type == descriptor.FieldDescriptorProto_TYPE_MESSAGE {
-		return true
+	if f == nil || f.Type == nil {
+		return false
 	}
-
-	return false
+	return *f.Type == descriptor.FieldDescriptorProto_TYPE_MESSAGE
 }
 
 func isFieldRepeated(f *descriptor.FieldDescriptorProto) bool {
@@ -851,15 +829,15 @@ func goZeroValue(f *descriptor.FieldDescriptorProto) string {
 }
 
 func jsType(f *descriptor.FieldDescriptorProto) string {
-	template := "%s"
+	format := "%s"
 	if isFieldRepeated(f) {
-		template = "Array<%s>"
+		format = "Array<%s>"
 	}
 
 	switch *f.Type {
 	case descriptor.FieldDescriptorProto_TYPE_MESSAGE,
 		descriptor.FieldDescriptorProto_TYPE_ENUM:
-		return fmt.Sprintf(template, namespacedFlowType(*f.TypeName))
+		return fmt.Sprintf(format, namespacedFlowType(*f.TypeName))
 	case descriptor.FieldDescriptorProto_TYPE_DOUBLE,
 		descriptor.FieldDescriptorProto_TYPE_FLOAT,
 		descriptor.FieldDescriptorProto_TYPE_INT64,
@@ -872,15 +850,15 @@ func jsType(f *descriptor.FieldDescriptorProto) string {
 		descriptor.FieldDescriptorProto_TYPE_SFIXED64,
 		descriptor.FieldDescriptorProto_TYPE_SINT32,
 		descriptor.FieldDescriptorProto_TYPE_SINT64:
-		return fmt.Sprintf(template, "number")
+		return fmt.Sprintf(format, "number")
 	case descriptor.FieldDescriptorProto_TYPE_BOOL:
-		return fmt.Sprintf(template, "boolean")
+		return fmt.Sprintf(format, "boolean")
 	case descriptor.FieldDescriptorProto_TYPE_BYTES:
-		return fmt.Sprintf(template, "Uint8Array")
+		return fmt.Sprintf(format, "Uint8Array")
 	case descriptor.FieldDescriptorProto_TYPE_STRING:
-		return fmt.Sprintf(template, "string")
+		return fmt.Sprintf(format, "string")
 	default:
-		return fmt.Sprintf(template, "any")
+		return fmt.Sprintf(format, "any")
 	}
 }
 
@@ -889,11 +867,7 @@ func jsSuffixReservedKeyword(s string) string {
 }
 
 func isTimestampPackage(s string) bool {
-	var isTimestampPackage bool
-	if strings.Compare(s, ".google.protobuf.Timestamp") == 0 {
-		isTimestampPackage = true
-	}
-	return isTimestampPackage
+	return s == ".google.protobuf.Timestamp"
 }
 
 func getPackageTypeName(s string) string {
@@ -950,11 +924,11 @@ func httpPathsAdditionalBindings(m *descriptor.MethodDescriptorProto) []string {
 	ext := proto.GetExtension(m.Options, options.E_Http)
 	opts, ok := ext.(*options.HttpRule)
 	if !ok {
-		panic(fmt.Sprintf("extension is %T; want an HttpRule", ext))
+		return nil
 	}
 
 	var httpPaths []string
-	var optsAdditionalBindings = opts.GetAdditionalBindings()
+	optsAdditionalBindings := opts.GetAdditionalBindings()
 	for _, optAdditionalBindings := range optsAdditionalBindings {
 		switch t := optAdditionalBindings.Pattern.(type) {
 		case *options.HttpRule_Get:
@@ -1080,13 +1054,13 @@ func formatID(base string, formatted string) string {
 	return formatted
 }
 
-func replaceDict(src string, dict map[string]interface{}) string {
-	for old, v := range dict {
-		new, ok := v.(string)
+func replaceDict(src string, dict map[string]any) string {
+	for key, v := range dict {
+		replacement, ok := v.(string)
 		if !ok {
 			continue
 		}
-		src = strings.Replace(src, old, new, -1)
+		src = strings.ReplaceAll(src, key, replacement)
 	}
 	return src
 }

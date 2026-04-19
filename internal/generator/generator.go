@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sort"
 
-	ggdescriptor "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
+	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
@@ -23,7 +23,7 @@ func Generate(plugin *protogen.Plugin, opts *Options) error {
 	req := plugin.Request
 
 	if opts.SinglePackageMode {
-		reg := ggdescriptor.NewRegistry()
+		reg := descriptor.NewRegistry()
 		SetRegistry(reg)
 		if err := reg.Load(req); err != nil {
 			return fmt.Errorf("registry: failed to load the request: %w", err)

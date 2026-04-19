@@ -1,10 +1,10 @@
 package generator_test
 
 import (
+	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
 )
 
 var _ = Describe("Options.Set", func() {

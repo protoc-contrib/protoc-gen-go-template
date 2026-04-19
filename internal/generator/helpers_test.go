@@ -5,10 +5,10 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-
-	"github.com/protoc-contrib/protoc-gen-go-template/internal/generator"
 )
 
 // render invokes a template that calls `name` against args, passed in as
