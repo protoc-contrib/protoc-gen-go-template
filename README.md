@@ -1,98 +1,169 @@
 # protoc-gen-go-template
 
-A generic protoc plugin that renders arbitrary files from Go
-[`text/template`](https://pkg.go.dev/text/template) sources driven by the
-parsed proto AST.
+[![CI](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml)
+[![Coverage](https://raw.githubusercontent.com/protoc-contrib/protoc-gen-go-template/main/.github/octocov/badge.svg)](https://github.com/protoc-contrib/protoc-gen-go-template/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/protoc-contrib/protoc-gen-go-template?include_prereleases)](https://github.com/protoc-contrib/protoc-gen-go-template/releases)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
+[![Go](https://img.shields.io/badge/Go-1.23-00ADD8?logo=go&logoColor=white)](https://go.dev)
+[![protoc](https://img.shields.io/badge/protoc-compatible-blue)](https://protobuf.dev)
 
-The plugin walks a user-provided template directory, parses every `.tmpl`
-file, and writes the rendered output into the protoc response. The template
-engine is extended with helpers from
-[Masterminds/sprig](https://github.com/Masterminds/sprig) plus a proto-aware
-funcmap (type manipulation, HTTP annotation accessors, naming helpers, etc.).
+A [protoc](https://protobuf.dev) plugin that renders arbitrary files from
+Go [`text/template`](https://pkg.go.dev/text/template) sources driven by
+the parsed proto AST. The plugin walks a user-provided template directory,
+parses every `.tmpl` file, and writes the rendered output into the protoc
+response. The template engine is extended with helpers from
+[Masterminds/sprig](https://github.com/Masterminds/sprig) plus a
+proto-aware funcmap (naming, arithmetic, field/message walkers, HTTP
+annotation accessors, extension readers).
 
-## Philosophy
+This project is a continuation of
+[moul/protoc-gen-gotemplate](https://github.com/moul/protoc-gen-gotemplate)
+by Manfred Touron and contributors, republished under `protoc-contrib` and
+renamed to align with common protoc plugin naming conventions. The binary
+entrypoint now uses `google.golang.org/protobuf/compiler/protogen`, the
+layout mirrors the rest of the `protoc-contrib` plugins, and the build and
+release pipeline runs on Nix + `release-please`.
 
-- protobuf-first — every output is derived from a parsed proto AST
-- no built-in templates — the plugin is a runner for user-owned templates
-- keep it stupid simple
+## Features
 
-## Install
+- **Template-driven output** — any `.tmpl` file under `template_dir` is
+  rendered; output filenames can themselves be templated, so one template
+  can fan out to many files.
+- **Sprig funcmap** — every helper from
+  [Masterminds/sprig](https://github.com/Masterminds/sprig) is available
+  (date, string, crypto, flow, default, dictionary, and more).
+- **Proto-aware funcmap** — naming (`camelCase`, `lowerCamelCase`,
+  `snakeCase`, `kebabCase`, `goNormalize`, `shortType`, ...), arithmetic
+  (`add`, `subtract`, `multiply`, `divide`), field/message walkers
+  (`getMessageType`, `isFieldMessage`, `fieldMapKeyType`, ...), HTTP
+  annotation accessors (`httpPath`, `httpVerb`, `httpBody`, ...), and
+  extension readers (`stringFieldExtension`, `boolFieldExtension`, ...).
+- **Service-scoped or file-scoped iteration** — default mode renders the
+  template set once per gRPC service; `file-mode` renders once per file
+  that declares a service; `all` renders every proto file whether or not
+  it declares a service.
+- **Cross-file lookups** — `single-package-mode` loads the full request
+  into a `grpc-gateway` registry so templates can resolve messages across
+  imports.
 
-```console
+## Options
+
+Pass plugin options via `--go-template_opt=key=value` (protoc) or the
+`opt:` list under the plugin entry in `buf.gen.yaml`.
+
+| Option                | Default      | Effect                                                                                 |
+| --------------------- | ------------ | -------------------------------------------------------------------------------------- |
+| `template_dir`        | `./template` | Root directory containing `.tmpl` files.                                               |
+| `destination_dir`     | `.`          | Base path written into each output file name.                                          |
+| `debug`               | `false`      | Verbose template-engine logging.                                                       |
+| `all`                 | `false`      | Run templates against every proto file, not only those that define services.           |
+| `single-package-mode` | `false`      | Load the full request into a grpc-gateway registry for cross-file message lookups.     |
+| `file-mode`           | `false`      | Run templates once per file (that declares a service) rather than per service.         |
+
+## Installation
+
+```bash
 go install github.com/protoc-contrib/protoc-gen-go-template/cmd/protoc-gen-go-template@latest
-```
-
-Or build with Nix:
-
-```console
-nix build .
 ```
 
 ## Usage
 
-Every file ending in `.tmpl` under `template_dir` is rendered and written to
-the destination folder, preserving the directory layout under `template_dir`
-and stripping the `.tmpl` suffix.
+### With buf
 
-```console
-$ ls -R
-input.proto  templates/doc.txt.tmpl  templates/config.json.tmpl
-$ protoc --go-template_out=. input.proto
-$ ls -R
-input.proto  templates/doc.txt.tmpl  templates/config.json.tmpl
-doc.txt      config.json
+Add the plugin to your `buf.gen.yaml`:
+
+```yaml
+version: v2
+plugins:
+  - local: protoc-gen-go-template
+    out: .
+    opt:
+      - template_dir=./templates
 ```
 
-### Options
+Then run:
 
-```console
-$ protoc --go-template_out=debug=true,template_dir=/path/to/templates:. input.proto
+```bash
+buf generate
 ```
 
-| Option                | Default      | Values           | Description                                                                 |
-|-----------------------|--------------|------------------|-----------------------------------------------------------------------------|
-| `template_dir`        | `./template` | path             | root directory containing `.tmpl` files                                     |
-| `destination_dir`     | `.`          | path             | base path written into each output file name                                |
-| `debug`               | `false`      | bool             | verbose template-engine logging                                             |
-| `all`                 | `false`      | bool             | run templates against every proto file, not only those that define services |
-| `single-package-mode` | `false`      | bool             | load the full request into a grpc-gateway registry for cross-file lookups   |
-| `file-mode`           | `false`      | bool             | run templates once per file (that declares a service) rather than per service |
+### With protoc
 
-## Funcmap
-
-The template engine is loaded with all [sprig](https://github.com/Masterminds/sprig)
-helpers plus a proto-aware set: naming (`camelCase`, `lowerCamelCase`,
-`snakeCase`, `kebabCase`, `goNormalize`, `shortType`, ...), arithmetic
-(`add`, `subtract`, `multiply`, `divide`), message/field walkers
-(`getMessageType`, `isFieldMessage`, `fieldMapKeyType`, ...), HTTP annotation
-accessors (`httpPath`, `httpVerb`, `httpBody`, ...), and extension readers
-(`stringFieldExtension`, `boolFieldExtension`, ...). See
-[`internal/generator/helpers.go`](./internal/generator/helpers.go) for the
-complete list.
-
-## Repository layout
-
-```
-cmd/protoc-gen-go-template/   binary entry point (protogen plugin)
-internal/generator/           template engine, funcmap, encoders
-.github/                      CI workflows, release-please config, dependabot
-flake.nix                     Nix build (buildGoModule)
+```bash
+protoc \
+  --go-template_out=. \
+  --go-template_opt=template_dir=./templates \
+  -I proto/ \
+  proto/example.proto
 ```
 
-## Credits
+## Example
 
-This project is a continuation of
-[moul/protoc-gen-gotemplate](https://github.com/moul/protoc-gen-gotemplate)
-by Manfred Touron and contributors, republished under the `protoc-contrib`
-org and renamed to `protoc-gen-go-template` to align with common protoc
-plugin naming conventions. Original git history is preserved.
+Given this layout:
 
-### Migrating from `protoc-gen-gotemplate`
+```
+input.proto
+templates/doc.txt.tmpl
+templates/config.json.tmpl
+```
 
-- Binary renamed: `protoc-gen-gotemplate` → `protoc-gen-go-template`
-- Protoc flag renamed: `--gotemplate_out` → `--go-template_out`
-- Install path: `go install github.com/protoc-contrib/protoc-gen-go-template/cmd/protoc-gen-go-template@latest`
+and a `doc.txt.tmpl` like:
+
+```
+{{.File.Package}} — {{len .File.MessageType}} message(s)
+{{range .File.MessageType}}- {{.Name}}
+{{end}}
+```
+
+running:
+
+```bash
+protoc --go-template_out=. input.proto
+```
+
+produces `doc.txt` and `config.json` alongside the originals, one pair per
+service declared in `input.proto`.
+
+The top-level template context exposes the raw descriptor AST plus
+per-invocation metadata:
+
+```go
+type Ast struct {
+    File           *descriptorpb.FileDescriptorProto
+    Service        *descriptorpb.ServiceDescriptorProto
+    Enum           []*descriptorpb.EnumDescriptorProto
+    TemplateDir    string
+    DestinationDir string
+    RawFilename    string
+    Filename       string
+    PWD, GoPWD     string
+    BuildDate      time.Time
+    BuildHostname  string
+    BuildUser      string
+    Debug          bool
+}
+```
+
+See [`internal/generator/helpers.go`](internal/generator/helpers.go) for
+the full funcmap.
+
+## Migration from `protoc-gen-gotemplate`
+
+- Binary renamed: `protoc-gen-gotemplate` → `protoc-gen-go-template`.
+- Protoc flag renamed: `--gotemplate_out` → `--go-template_out`.
+- Install path: `go install github.com/protoc-contrib/protoc-gen-go-template/cmd/protoc-gen-go-template@latest`.
+
+## Contributing
+
+To set up a development environment with [Nix](https://nixos.org):
+
+```bash
+nix develop
+go test ./...
+```
+
+Or, without Nix, ensure `go` and `protoc` are on your `PATH`.
 
 ## License
 
-MIT — see [`LICENSE.md`](./LICENSE.md).
+[MIT](LICENSE.md)
