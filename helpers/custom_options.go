@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/golang/protobuf/proto" // nolint:staticcheck
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"google.golang.org/protobuf/proto"
+	descriptor "google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	"google.golang.org/protobuf/runtime/protoimpl"
@@ -13,17 +13,25 @@ import (
 
 var protoregistryMutex sync.Mutex
 
+// messageV1 matches the legacy proto.Message shape expected by
+// protoimpl.ExtensionInfo.ExtendedType.
+type messageV1 = interface {
+	Reset()
+	String() string
+	ProtoMessage()
+}
+
 // getExtension returns the value of an extension.
 //
 // If the extension with the given ID is not already registered, it will be made up.
-func getExtension(extendedMessage proto.Message, extendedType proto.Message, fieldID int32, fieldType interface{}) (interface{}, error) {
+func getExtension(extendedMessage proto.Message, extendedType messageV1, fieldID int32, fieldType interface{}) (interface{}, error) {
 	// To prevent concurrent map read/write while querying the registry and registring new extensions, request a lock.
 	protoregistryMutex.Lock()
 	defer protoregistryMutex.Unlock()
 
 	// Query the registry for the given Message and field ID.
 	eds := make(map[int32]*protoimpl.ExtensionInfo)
-	protoregistry.GlobalTypes.RangeExtensionsByMessage(protoimpl.X.MessageDescriptorOf(extendedMessage).FullName(), func(xt protoreflect.ExtensionType) bool {
+	protoregistry.GlobalTypes.RangeExtensionsByMessage(extendedMessage.ProtoReflect().Descriptor().FullName(), func(xt protoreflect.ExtensionType) bool {
 		if xd, ok := xt.(*protoimpl.ExtensionInfo); ok {
 			eds[int32(xt.TypeDescriptor().Number())] = xd
 		}
@@ -40,7 +48,7 @@ func getExtension(extendedMessage proto.Message, extendedType proto.Message, fie
 			tagType = "bytes"
 		}
 
-		extensionInfo = &proto.ExtensionDesc{
+		extensionInfo = &protoimpl.ExtensionInfo{
 			ExtendedType:  extendedType,
 			ExtensionType: fieldType,
 			Field:         fieldID,
@@ -53,7 +61,7 @@ func getExtension(extendedMessage proto.Message, extendedType proto.Message, fie
 		}
 	}
 
-	return proto.GetExtension(extendedMessage, extensionInfo)
+	return proto.GetExtension(extendedMessage, extensionInfo), nil
 }
 
 // stringMethodOptionsExtension extracts method options of a string type.

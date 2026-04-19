@@ -4,7 +4,6 @@ go 1.23
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
-	github.com/golang/protobuf v1.5.4
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/huandu/xstrings v1.5.0
 	google.golang.org/genproto v0.0.0-20200513103714-09dca8ec2884
@@ -17,6 +16,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect

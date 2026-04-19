@@ -1,12 +1,12 @@
 package pgghelpers
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
-	"github.com/golang/protobuf/protoc-gen-go/generator" // nolint:staticcheck
-	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	ggdescriptor "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
+	plugin_go "google.golang.org/protobuf/types/pluginpb"
 )
 
 const (
@@ -23,11 +23,10 @@ type Parameters struct {
 	FileMode          bool
 }
 
-func ParseParams(g *generator.Generator) {
-
+func ParseParams(req *plugin_go.CodeGeneratorRequest, resp *plugin_go.CodeGeneratorResponse) error {
 	var params Parameters
 
-	if parameter := g.Request.GetParameter(); parameter != "" {
+	if parameter := req.GetParameter(); parameter != "" {
 		for _, param := range strings.Split(parameter, ",") {
 			parts := strings.Split(param, "=")
 			if len(parts) != 2 {
@@ -83,24 +82,24 @@ func ParseParams(g *generator.Generator) {
 			*val.Content += file.GetContent()
 		} else {
 			tmplMap[file.GetName()] = file
-			g.Response.File = append(g.Response.File, file)
+			resp.File = append(resp.File, file)
 		}
 	}
 
 	if params.SinglePackageMode {
 		registry = ggdescriptor.NewRegistry()
 		SetRegistry(registry)
-		if err := registry.Load(g.Request); err != nil {
-			g.Error(err, "registry: failed to load the request")
+		if err := registry.Load(req); err != nil {
+			return fmt.Errorf("registry: failed to load the request: %w", err)
 		}
 	}
 
 	// Generate the encoders
-	for _, file := range g.Request.GetProtoFile() {
+	for _, file := range req.GetProtoFile() {
 		if params.All {
 			if params.SinglePackageMode {
 				if _, err := registry.LookupFile(file.GetName()); err != nil {
-					g.Error(err, "registry: failed to lookup file %q", file.GetName())
+					return fmt.Errorf("registry: failed to lookup file %q: %w", file.GetName(), err)
 				}
 			}
 			encoder := NewGenericTemplateBasedEncoder(params.TemplateDir, file, params.Debug, params.DestinationDir)
@@ -112,7 +111,7 @@ func ParseParams(g *generator.Generator) {
 		}
 
 		if params.FileMode {
-			if s := file.GetService(); s != nil && len(s) > 0 {
+			if s := file.GetService(); len(s) > 0 {
 				encoder := NewGenericTemplateBasedEncoder(params.TemplateDir, file, params.Debug, params.DestinationDir)
 				for _, tmpl := range encoder.Files() {
 					concatOrAppend(tmpl)
@@ -129,4 +128,6 @@ func ParseParams(g *generator.Generator) {
 			}
 		}
 	}
+
+	return nil
 }

@@ -1,45 +1,43 @@
 package main // import "github.com/protoc-contrib/protoc-gen-go-template"
 
 import (
-	"io/ioutil"
+	"io"
+	"log"
 	"os"
 
-	"github.com/golang/protobuf/proto"                   // nolint:staticcheck
-	"github.com/golang/protobuf/protoc-gen-go/generator" // nolint:staticcheck
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/pluginpb"
 
 	pgghelpers "github.com/protoc-contrib/protoc-gen-go-template/helpers"
 )
 
 func main() {
-	g := generator.New()
-
-	data, err := ioutil.ReadAll(os.Stdin)
+	data, err := io.ReadAll(os.Stdin)
 	if err != nil {
-		g.Error(err, "reading input")
+		log.Fatalf("reading input: %v", err)
 	}
 
-	if err = proto.Unmarshal(data, g.Request); err != nil {
-		g.Error(err, "parsing input proto")
+	req := &pluginpb.CodeGeneratorRequest{}
+	if err := proto.Unmarshal(data, req); err != nil {
+		log.Fatalf("parsing input proto: %v", err)
 	}
 
-	if len(g.Request.FileToGenerate) == 0 {
-		g.Fail("no files to generate")
+	if len(req.FileToGenerate) == 0 {
+		log.Fatal("no files to generate")
 	}
 
-	g.CommandLineParameters(g.Request.GetParameter())
+	resp := &pluginpb.CodeGeneratorResponse{}
+	if err := pgghelpers.ParseParams(req, resp); err != nil {
+		msg := err.Error()
+		resp.Error = &msg
+	}
 
-	pgghelpers.ParseParams(g)
-
-	// Generate the protobufs
-	g.GenerateAllFiles()
-
-	data, err = proto.Marshal(g.Response)
+	out, err := proto.Marshal(resp)
 	if err != nil {
-		g.Error(err, "failed to marshal output proto")
+		log.Fatalf("failed to marshal output proto: %v", err)
 	}
 
-	_, err = os.Stdout.Write(data)
-	if err != nil {
-		g.Error(err, "failed to write output proto")
+	if _, err := os.Stdout.Write(out); err != nil {
+		log.Fatalf("failed to write output proto: %v", err)
 	}
 }

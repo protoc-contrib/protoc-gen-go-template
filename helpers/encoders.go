@@ -10,8 +10,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
+	descriptor "google.golang.org/protobuf/types/descriptorpb"
+	plugin_go "google.golang.org/protobuf/types/pluginpb"
 )
 
 type GenericTemplateBasedEncoder struct {

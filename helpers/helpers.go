@@ -10,8 +10,8 @@ import (
 	"text/template"
 
 	"github.com/Masterminds/sprig/v3"
-	"github.com/golang/protobuf/proto" // nolint:staticcheck
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"google.golang.org/protobuf/proto"
+	descriptor "google.golang.org/protobuf/types/descriptorpb"
 	ggdescriptor "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
 	"github.com/huandu/xstrings"
 	options "google.golang.org/genproto/googleapis/api/annotations"
@@ -934,10 +934,10 @@ func namespacedFlowType(s string) string {
 
 func httpPath(m *descriptor.MethodDescriptorProto) string {
 
-	ext, err := proto.GetExtension(m.Options, options.E_Http)
-	if err != nil {
-		return err.Error()
+	if m.Options == nil || !proto.HasExtension(m.Options, options.E_Http) {
+		return ""
 	}
+	ext := proto.GetExtension(m.Options, options.E_Http)
 	opts, ok := ext.(*options.HttpRule)
 	if !ok {
 		return fmt.Sprintf("extension is %T; want an HttpRule", ext)
@@ -962,10 +962,10 @@ func httpPath(m *descriptor.MethodDescriptorProto) string {
 }
 
 func httpPathsAdditionalBindings(m *descriptor.MethodDescriptorProto) []string {
-	ext, err := proto.GetExtension(m.Options, options.E_Http)
-	if err != nil {
-		panic(err.Error())
+	if m.Options == nil || !proto.HasExtension(m.Options, options.E_Http) {
+		return nil
 	}
+	ext := proto.GetExtension(m.Options, options.E_Http)
 	opts, ok := ext.(*options.HttpRule)
 	if !ok {
 		panic(fmt.Sprintf("extension is %T; want an HttpRule", ext))
@@ -997,10 +997,10 @@ func httpPathsAdditionalBindings(m *descriptor.MethodDescriptorProto) []string {
 
 func httpVerb(m *descriptor.MethodDescriptorProto) string {
 
-	ext, err := proto.GetExtension(m.Options, options.E_Http)
-	if err != nil {
-		return err.Error()
+	if m.Options == nil || !proto.HasExtension(m.Options, options.E_Http) {
+		return ""
 	}
+	ext := proto.GetExtension(m.Options, options.E_Http)
 	opts, ok := ext.(*options.HttpRule)
 	if !ok {
 		return fmt.Sprintf("extension is %T; want an HttpRule", ext)
@@ -1026,10 +1026,10 @@ func httpVerb(m *descriptor.MethodDescriptorProto) string {
 
 func httpBody(m *descriptor.MethodDescriptorProto) string {
 
-	ext, err := proto.GetExtension(m.Options, options.E_Http)
-	if err != nil {
-		return err.Error()
+	if m.Options == nil || !proto.HasExtension(m.Options, options.E_Http) {
+		return ""
 	}
+	ext := proto.GetExtension(m.Options, options.E_Http)
 	opts, ok := ext.(*options.HttpRule)
 	if !ok {
 		return fmt.Sprintf("extension is %T; want an HttpRule", ext)
