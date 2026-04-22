@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.8.0](https://github.com/protoc-contrib/protoc-gen-template/compare/v2.7.0...v2.8.0) (2026-04-22)
+
+
+### Features
+
+* rationalize plugin options ([57f575a](https://github.com/protoc-contrib/protoc-gen-template/commit/57f575ac1afecdebcb6a5f0180e9f9a0bf870932))
+
+
+### Bug Fixes
+
+* always load grpc-gateway registry, remove registry option ([804de32](https://github.com/protoc-contrib/protoc-gen-template/commit/804de32cdeed06f704f3f7742302bc5e472b5dee))
+
 ## [2.7.0](https://github.com/protoc-contrib/protoc-gen-template/compare/v2.6.0...v2.7.0) (2026-04-19)
 
 
