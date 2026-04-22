@@ -42,8 +42,9 @@ release pipeline runs on Nix + `release-please`.
 - **Flexible iteration** — `mode=service` (default) renders once per gRPC
   service; `mode=file` renders once per file that declares a service;
   `mode=all` renders every proto file whether or not it declares a service.
-- **Cross-file lookups** — `registry=true` loads the full request into a
-  `grpc-gateway` registry so templates can resolve messages across imports.
+- **Cross-file lookups** — the plugin always loads a `grpc-gateway` registry
+  so templates can resolve messages across imports via `getMessageType` and
+  `getProtoFile`.
 - **Structured logging** — the plugin emits `slog.Debug` events; enable
   them by configuring your slog handler's minimum level (e.g. `GOTOOLCHAIN` or
   a custom handler).
@@ -57,7 +58,6 @@ Pass plugin options via `--template_opt=key=value` (protoc) or the
 | -------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `template_dir` | `./template` | Root directory containing `.tmpl` files.                                                                                         |
 | `mode`         | `service`    | Iteration granularity: `service` (once per service), `file` (once per file that has a service), `all` (every file, no filter).   |
-| `registry`     | `false`      | Load the full request into a grpc-gateway registry so templates can resolve cross-file message references.                       |
 
 ## Installation
 

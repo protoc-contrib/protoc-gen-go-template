@@ -1,9 +1,6 @@
 package generator
 
-import (
-	"fmt"
-	"strconv"
-)
+import "fmt"
 
 // Mode controls which proto files are processed and at what granularity.
 type Mode string
@@ -26,9 +23,6 @@ type Options struct {
 	TemplateDir string
 	// Mode selects the iteration granularity: "service" (default), "file", or "all".
 	Mode Mode
-	// Registry loads the full request into a grpc-gateway registry so templates
-	// can walk cross-file message references.
-	Registry bool
 }
 
 // Set applies a single `name=value` plugin parameter to the options. The
@@ -37,8 +31,6 @@ func (o *Options) Set(name, value string) error {
 	switch name {
 	case "template_dir":
 		o.TemplateDir = value
-	case "registry":
-		return setBool(&o.Registry, name, value)
 	case "mode":
 		switch Mode(value) {
 		case ModeService, ModeFile, ModeAll:
@@ -49,14 +41,5 @@ func (o *Options) Set(name, value string) error {
 	default:
 		return fmt.Errorf("unknown plugin option %q", name)
 	}
-	return nil
-}
-
-func setBool(dst *bool, name, value string) error {
-	v, err := strconv.ParseBool(value)
-	if err != nil {
-		return fmt.Errorf("invalid value for %q: %w", name, err)
-	}
-	*dst = v
 	return nil
 }

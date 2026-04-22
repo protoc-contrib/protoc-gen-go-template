@@ -22,12 +22,10 @@ func Generate(plugin *protogen.Plugin, opts *Options) error {
 
 	req := plugin.Request
 
-	if opts.Registry {
-		reg := descriptor.NewRegistry()
-		SetRegistry(reg)
-		if err := reg.Load(req); err != nil {
-			return fmt.Errorf("registry: failed to load the request: %w", err)
-		}
+	reg := descriptor.NewRegistry()
+	SetRegistry(reg)
+	if err := reg.Load(req); err != nil {
+		return fmt.Errorf("registry: failed to load the request: %w", err)
 	}
 
 	emitted := map[string]*generatedFile{}

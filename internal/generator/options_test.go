@@ -20,15 +20,6 @@ var _ = Describe("Options.Set", func() {
 	})
 
 
-	It("accepts registry=true", func() {
-		Expect(opts.Set("registry", "true")).To(Succeed())
-		Expect(opts.Registry).To(BeTrue())
-	})
-
-	It("accepts registry=false", func() {
-		Expect(opts.Set("registry", "false")).To(Succeed())
-		Expect(opts.Registry).To(BeFalse())
-	})
 
 	DescribeTable("mode values",
 		func(value string, expected generator.Mode) {
@@ -52,9 +43,4 @@ var _ = Describe("Options.Set", func() {
 		Expect(err.Error()).To(ContainSubstring("unknown plugin option"))
 	})
 
-	It("rejects malformed booleans", func() {
-		err := opts.Set("registry", "yeah")
-		Expect(err).To(HaveOccurred())
-		Expect(err.Error()).To(ContainSubstring("invalid value"))
-	})
 })
