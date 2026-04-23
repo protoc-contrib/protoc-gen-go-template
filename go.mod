@@ -38,3 +38,5 @@ require (
 	golang.org/x/tools v0.41.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
+
+tool github.com/onsi/ginkgo/v2/ginkgo
