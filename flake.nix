@@ -20,7 +20,7 @@
           inherit version;
           src = pkgs.lib.cleanSource ./.;
           subPackages = [ "cmd/protoc-gen-template" ];
-          vendorHash = "sha256-YlKV3xYMTf5aEBvu37D0luZVg3+2U2OXjvLdVrmcKS4=";
+          vendorHash = "sha256-dMpb3iIKvMgDq8CgkrSVxhUFvnUEud6z9vMboQZvok8=";
           ldflags = [
             "-s"
             "-w"
