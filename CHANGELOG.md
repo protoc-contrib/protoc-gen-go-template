@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.3](https://github.com/protoc-contrib/protoc-gen-template/compare/v2.8.2...v2.8.3) (2026-05-04)
+
+
+### Bug Fixes
+
+* **github:** correct action versions in update.yml ([afbf6d5](https://github.com/protoc-contrib/protoc-gen-template/commit/afbf6d52c618c609bae6bc0594c88ce2849480b8))
+
 ## [2.8.2](https://github.com/protoc-contrib/protoc-gen-template/compare/v2.8.1...v2.8.2) (2026-04-23)
 
 
